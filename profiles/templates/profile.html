@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div style='width: 30%;margin: auto; color: white;' class="alert mt-3 alert-dismissible fade show {% if message.tags == 'error' %}bg-danger{% elif message.tags == 'success' %}bg-success{% endif %}" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  
+{% endif %}
+
+
+<h2>Car List :{{ carts|length}}</h2>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Car Name</th>
+        <th scope="col">Price </th>
+        <th scope="col">Remove Cart</th>
+      </tr>
+    </thead>
+    <tbody>
+
+       
+        <div class=' '>{% for cart in carts %}
+            <tr>
+              <th class='p-2' scope="row"><img style='height:100px;' class='rounded'  src="{{ cart.car.car_image.url }}" alt=""></th>
+              <td class='pt-5'>{{cart.car.name}}</td>
+              <td class='pt-5'>{{cart.car.price}}</td>
+              <td class='pt-5'><a class=' btn btn-danger' href="{% url "remove_cart" cart.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}</div>
+      
+     
+      
+    </tbody>
+  </table>
+
+
+
+<p>
+    <a href="{% url "update_profile" %}" class='btn btn-primary '>Profile Update</a>
+    <a href="{% url "update_pass" %}" class='btn btn-success '>Password Update</a>
+</p>
+
+
+{% endblock content %}

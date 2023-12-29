@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div style='width: 30%;margin: auto; color: white;' class="alert mt-3 alert-dismissible fade show {% if message.tags == 'error' %}bg-danger{% elif message.tags == 'success' %}bg-success{% endif %}" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  
+{% endif %}
+
+
+
+
+
+<form class='my-5' method='post'  style='width: 50%; margin:auto;' novalidate>
+    <h2> Please {{type}}</h2>
+    {% csrf_token %}
+
+    
+    <!--{{form| crispy}}-->
+
+    {% for fm in form %}
+    <div>{{fm.label_tag}}
+        {{fm}}
+        
+        {{fm.errors|striptags}}
+    </div>
+    {% endfor %}
+
+    <button type='submit' class='btn btn-primary my-3'>{{type}}</button>
+
+</form>
+
+
+{% endblock content %}
